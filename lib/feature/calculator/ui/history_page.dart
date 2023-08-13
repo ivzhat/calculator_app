@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class DiagramPage extends StatelessWidget {
-  const DiagramPage({super.key});
+class HistoryPage extends StatelessWidget {
+  const HistoryPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text('Диаграмма'),
+      child: Text('История'),
     );
   }
 }

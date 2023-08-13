@@ -16,7 +16,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
 
   static const List<MyCustomBottomNavBarItem> tabs = [
     MyCustomBottomNavBarItem(icon: Icon(Icons.calculate_outlined), label: 'Калькулятор', initialLocation: '/'),
-    MyCustomBottomNavBarItem(icon: Icon(Icons.incomplete_circle), label: 'Диаграмма', initialLocation: '/diagram'),
+    MyCustomBottomNavBarItem(icon: Icon(Icons.list), label: 'История', initialLocation: '/history'),
   ];
 
   @override

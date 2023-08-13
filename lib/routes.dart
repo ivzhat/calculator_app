@@ -2,7 +2,7 @@ import 'package:calculator_app/scaffold_with_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'feature/calculator/ui/calculator_page.dart';
-import 'feature/calculator/ui/diagram_page.dart';
+import 'feature/calculator/ui/history_page.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -31,21 +31,21 @@ final GoRouter appRouter = GoRouter(
                 appBar: AppBar(
                     title: const Text('Калькулятор')
                 ),
-                body: CalculatorPage(),
+                body: const CalculatorPage(),
               ),
             );
           }
         ),
         GoRoute(
           parentNavigatorKey: _shellNavigatorKey,
-          path: '/diagram',
+          path: '/history',
           pageBuilder: (context, state) {
             return NoTransitionPage(
               child: Scaffold(
                 appBar: AppBar(
-                    title: const Text('Диаграмма')
+                    title: const Text('История')
                 ),
-                body: const DiagramPage(),
+                body: const HistoryPage(),
               ),
             );
           }

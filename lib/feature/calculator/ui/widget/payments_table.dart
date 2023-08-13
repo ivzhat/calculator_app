@@ -9,7 +9,7 @@ class PaymentsTable extends StatelessWidget {
   Widget build(BuildContext context) {
     return DataTable(
       showBottomBorder: true,
-      columns: [
+      columns: const [
         DataColumn(label: Text(' №', style: TextStyle(fontSize: 16.0))),
         DataColumn(label: Text('Платеж', style: TextStyle(fontSize: 16.0))),
         DataColumn(label: Text('Проценты', style: TextStyle(fontSize: 16.0))),
