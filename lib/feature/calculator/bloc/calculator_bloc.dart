@@ -1,13 +1,14 @@
 import 'dart:math';
 import 'package:bloc/bloc.dart';
+import 'package:calculator_app/feature/calculator/domain/loan_model.dart';
 import 'package:flutter/material.dart';
 
 part 'calculator_event.dart';
+
 part 'calculator_state.dart';
 
 class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
   CalculatorBloc() : super(CalculatorInitial()) {
-
     on<CalculatorCalculationStarted>((event, emit) {
       emit(CalculatorCalculating());
 
@@ -22,7 +23,7 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
       final monthlyInterestRate = interestRate / 12.0;
       double remainingBalance = loanAmount;
 
-      if(event.selectedPaymentType == "Аннуитетный") {
+      if (event.selectedPaymentType == "Аннуитетный") {
         final annuityFactor =
             (monthlyInterestRate * pow(1 + monthlyInterestRate, loanTerm)) /
                 (pow(1 + monthlyInterestRate, loanTerm) - 1);
@@ -36,20 +37,23 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
           dataRows.add(DataRow(cells: [
             DataCell(Align(
               alignment: Alignment.center,
-              child: Text(month.toStringAsFixed(0), textAlign: TextAlign.center),
-            )),
-            DataCell(Align(
-              alignment: Alignment.center,
-              child: Text(monthlyPayment.toStringAsFixed(2), textAlign: TextAlign.center),
-            )),
-            DataCell(Align(
-              alignment: Alignment.center,
-              child: Text(interest.toStringAsFixed(2), textAlign: TextAlign.center),
-            )),
-            DataCell(Align(
-              alignment: Alignment.center,
               child:
-              Text(principal.toStringAsFixed(2), textAlign: TextAlign.center),
+                  Text(month.toStringAsFixed(0), textAlign: TextAlign.center),
+            )),
+            DataCell(Align(
+              alignment: Alignment.center,
+              child: Text(monthlyPayment.toStringAsFixed(2),
+                  textAlign: TextAlign.center),
+            )),
+            DataCell(Align(
+              alignment: Alignment.center,
+              child: Text(interest.toStringAsFixed(2),
+                  textAlign: TextAlign.center),
+            )),
+            DataCell(Align(
+              alignment: Alignment.center,
+              child: Text(principal.toStringAsFixed(2),
+                  textAlign: TextAlign.center),
             )),
             DataCell(Align(
               alignment: Alignment.center,
@@ -58,7 +62,7 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
             )),
           ]));
         }
-      } else if(event.selectedPaymentType == "Дифференцированный") {
+      } else if (event.selectedPaymentType == "Дифференцированный") {
         final principal = loanAmount / loanTerm;
         for (int month = 1; month <= loanTerm; month++) {
           final interest = remainingBalance * monthlyInterestRate;
@@ -69,20 +73,23 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
           dataRows.add(DataRow(cells: [
             DataCell(Align(
               alignment: Alignment.center,
-              child: Text(month.toStringAsFixed(0), textAlign: TextAlign.center),
-            )),
-            DataCell(Align(
-              alignment: Alignment.center,
-              child: Text(payment.toStringAsFixed(2), textAlign: TextAlign.center),
-            )),
-            DataCell(Align(
-              alignment: Alignment.center,
-              child: Text(interest.toStringAsFixed(2), textAlign: TextAlign.center),
+              child:
+                  Text(month.toStringAsFixed(0), textAlign: TextAlign.center),
             )),
             DataCell(Align(
               alignment: Alignment.center,
               child:
-              Text(principal.toStringAsFixed(2), textAlign: TextAlign.center),
+                  Text(payment.toStringAsFixed(2), textAlign: TextAlign.center),
+            )),
+            DataCell(Align(
+              alignment: Alignment.center,
+              child: Text(interest.toStringAsFixed(2),
+                  textAlign: TextAlign.center),
+            )),
+            DataCell(Align(
+              alignment: Alignment.center,
+              child: Text(principal.toStringAsFixed(2),
+                  textAlign: TextAlign.center),
             )),
             DataCell(Align(
               alignment: Alignment.center,
@@ -92,7 +99,16 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
           ]));
         }
       }
-      emit(CalculatorCalculated(dataRows, totalPayment, totalInterest, interestRate, loanAmount, loanTerm, event.selectedPaymentType));
+      Loan loan = Loan(
+        term: loanTerm,
+        amount: loanAmount,
+        interestRate: interestRate,
+        paymentType: event.selectedPaymentType,
+        totalPayment:  totalPayment,
+        totalInterest: totalInterest,
+        dataRows: dataRows
+      );
+      emit(CalculatorCalculated(loan));
     });
   }
 }

@@ -42,7 +42,7 @@ class CalculatorPage extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                state.totalPayment.toStringAsFixed(2),
+                                state.loan.totalPayment.toStringAsFixed(2),
                                 style: const TextStyle(
                                   fontSize: 20.0,
                                   fontWeight: FontWeight.bold,
@@ -62,7 +62,7 @@ class CalculatorPage extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '${(state.interestRate * 100).toStringAsFixed(2)} %',
+                                '${(state.loan.interestRate * 100).toStringAsFixed(2)} %',
                                 style: const TextStyle(
                                   fontSize: 20.0,
                                   fontWeight: FontWeight.bold,
@@ -82,7 +82,7 @@ class CalculatorPage extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                state.totalInterest.toStringAsFixed(2),
+                                state.loan.totalInterest.toStringAsFixed(2),
                                 style: const TextStyle(
                                   fontSize: 20.0,
                                   fontWeight: FontWeight.bold,
@@ -97,8 +97,8 @@ class CalculatorPage extends StatelessWidget {
                   const SizedBox(height: 10.0),
                   PieChart(
                     dataMap: {
-                      'Сумма кредита': state.loanAmount,
-                      'Переплата': state.totalInterest
+                      'Сумма кредита': state.loan.amount,
+                      'Переплата': state.loan.totalInterest
                     },
                     chartRadius: MediaQuery.of(context).size.width / 2.0,
                     chartType: ChartType.disc,
@@ -125,7 +125,7 @@ class CalculatorPage extends StatelessWidget {
                   ConstrainedBox(
                     constraints: BoxConstraints(
                         minWidth: MediaQuery.of(context).size.width),
-                    child: PaymentsTable(dataRows: state.dataRows),
+                    child: PaymentsTable(dataRows: state.loan.dataRows),
                     // child: PaymentsTable(dataRows: monthlyPaymentsRows),
                   ),
                   const SizedBox(height: 10.0),
