@@ -125,7 +125,7 @@ class CalculatorPage extends StatelessWidget {
                   ConstrainedBox(
                     constraints: BoxConstraints(
                         minWidth: MediaQuery.of(context).size.width),
-                    child: PaymentsTable(dataRows: state.loan.dataRows),
+                    child: PaymentsTable(dataRows: state.dataRows),
                     // child: PaymentsTable(dataRows: monthlyPaymentsRows),
                   ),
                   const SizedBox(height: 10.0),

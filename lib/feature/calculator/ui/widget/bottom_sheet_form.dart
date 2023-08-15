@@ -13,11 +13,23 @@ class BottomSheetForm extends StatelessWidget {
   String selectedPaymentType = 'Аннуитетный';
   final _formKey = GlobalKey<FormState>();
 
+  final buttonStyle = ElevatedButton.styleFrom(
+    minimumSize: const Size(50.0, 50.0),
+    elevation: 0.5,
+    backgroundColor: Colors.blue,
+    padding: const EdgeInsets.symmetric(
+        vertical: 10.0, horizontal: 10.0),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10.0),
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
     return Center(
       child: ElevatedButton(
-        child: const Text('Перерасчитать платежи'),
+        style: buttonStyle,
+        child: const Text('Расчитать платежи'),
         onPressed: () {
           showModalBottomSheet<void>(
             backgroundColor: Colors.transparent,
@@ -237,16 +249,7 @@ class BottomSheetForm extends StatelessWidget {
                             ),
                             const SizedBox(height: 40.0),
                             ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                minimumSize: const Size(50.0, 50.0),
-                                elevation: 0.5,
-                                backgroundColor: Colors.blue,
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 10.0),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                              ),
+                              style: buttonStyle,
                               onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     BlocProvider.of<CalculatorBloc>(context)

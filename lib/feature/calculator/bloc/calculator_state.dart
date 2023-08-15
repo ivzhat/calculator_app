@@ -8,7 +8,8 @@ class CalculatorInitial extends CalculatorState {}
 class CalculatorCalculating extends CalculatorState {}
 
 class CalculatorCalculated extends CalculatorState {
-  CalculatorCalculated(this.loan);
+  CalculatorCalculated(this.loan, this.dataRows);
 
   final Loan loan;
+  final List<DataRow> dataRows;
 }

@@ -1,14 +1,25 @@
-import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+part 'loan_model.g.dart';
 
+@HiveType(typeId: 0)
 class Loan {
-  final int term;
-  final double amount;
-  final double interestRate;
-  final String paymentType;
-  final double totalPayment;
-  final double totalInterest;
+  @HiveField(0)
+  int term;
 
-  final List<DataRow> dataRows;
+  @HiveField(1)
+  double amount;
+
+  @HiveField(2)
+  double interestRate;
+
+  @HiveField(3)
+  String paymentType;
+
+  @HiveField(4)
+  double totalPayment;
+
+  @HiveField(5)
+  double totalInterest;
 
   Loan({
     required this.term,
@@ -17,6 +28,5 @@ class Loan {
     required this.paymentType,
     required this.totalPayment,
     required this.totalInterest,
-    required this.dataRows,
   });
 }

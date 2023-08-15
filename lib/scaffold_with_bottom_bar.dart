@@ -44,6 +44,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
   }
 
   void _goOtherTab(BuildContext context, int index) {
+    _currentIndex = widget.location == '/' ? 0 : 1;
     if (index == _currentIndex) return;
     GoRouter router = GoRouter.of(context);
     String location = tabs[index].initialLocation;

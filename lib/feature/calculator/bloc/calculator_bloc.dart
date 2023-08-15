@@ -1,7 +1,8 @@
 import 'dart:math';
 import 'package:bloc/bloc.dart';
-import 'package:calculator_app/feature/calculator/domain/loan_model.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import '../domain/loan_model.dart';
 
 part 'calculator_event.dart';
 
@@ -9,7 +10,7 @@ part 'calculator_state.dart';
 
 class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
   CalculatorBloc() : super(CalculatorInitial()) {
-    on<CalculatorCalculationStarted>((event, emit) {
+    on<CalculatorCalculationStarted>((event, emit) async {
       emit(CalculatorCalculating());
 
       final loanAmount = double.parse(event.loanSum);
@@ -36,30 +37,20 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
           remainingBalance -= principal;
           dataRows.add(DataRow(cells: [
             DataCell(Align(
-              alignment: Alignment.center,
-              child:
-                  Text(month.toStringAsFixed(0), textAlign: TextAlign.center),
-            )),
+                alignment: Alignment.center,
+                child: Text(month.toStringAsFixed(0)))),
             DataCell(Align(
-              alignment: Alignment.center,
-              child: Text(monthlyPayment.toStringAsFixed(2),
-                  textAlign: TextAlign.center),
-            )),
+                alignment: Alignment.center,
+                child: Text(monthlyPayment.toStringAsFixed(2)))),
             DataCell(Align(
-              alignment: Alignment.center,
-              child: Text(interest.toStringAsFixed(2),
-                  textAlign: TextAlign.center),
-            )),
+                alignment: Alignment.center,
+                child: Text(interest.toStringAsFixed(2)))),
             DataCell(Align(
-              alignment: Alignment.center,
-              child: Text(principal.toStringAsFixed(2),
-                  textAlign: TextAlign.center),
-            )),
+                alignment: Alignment.center,
+                child: Text(principal.toStringAsFixed(2)))),
             DataCell(Align(
-              alignment: Alignment.center,
-              child: Text(remainingBalance.toStringAsFixed(2),
-                  textAlign: TextAlign.center),
-            )),
+                alignment: Alignment.center,
+                child: Text(remainingBalance.toStringAsFixed(2)))),
           ]));
         }
       } else if (event.selectedPaymentType == "Дифференцированный") {
@@ -72,30 +63,20 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
           totalInterest += interest;
           dataRows.add(DataRow(cells: [
             DataCell(Align(
-              alignment: Alignment.center,
-              child:
-                  Text(month.toStringAsFixed(0), textAlign: TextAlign.center),
-            )),
+                alignment: Alignment.center,
+                child: Text(month.toStringAsFixed(0)))),
             DataCell(Align(
-              alignment: Alignment.center,
-              child:
-                  Text(payment.toStringAsFixed(2), textAlign: TextAlign.center),
-            )),
+                alignment: Alignment.center,
+                child: Text(payment.toStringAsFixed(2)))),
             DataCell(Align(
-              alignment: Alignment.center,
-              child: Text(interest.toStringAsFixed(2),
-                  textAlign: TextAlign.center),
-            )),
+                alignment: Alignment.center,
+                child: Text(interest.toStringAsFixed(2)))),
             DataCell(Align(
-              alignment: Alignment.center,
-              child: Text(principal.toStringAsFixed(2),
-                  textAlign: TextAlign.center),
-            )),
+                alignment: Alignment.center,
+                child: Text(principal.toStringAsFixed(2)))),
             DataCell(Align(
-              alignment: Alignment.center,
-              child: Text(remainingBalance.toStringAsFixed(2),
-                  textAlign: TextAlign.center),
-            )),
+                alignment: Alignment.center,
+                child: Text(remainingBalance.toStringAsFixed(2)))),
           ]));
         }
       }
@@ -106,9 +87,12 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
         paymentType: event.selectedPaymentType,
         totalPayment:  totalPayment,
         totalInterest: totalInterest,
-        dataRows: dataRows
       );
-      emit(CalculatorCalculated(loan));
+      if(!event.isFromHistory) {
+        var box = await Hive.openBox<Loan>('loans');
+        box.add(loan);
+      }
+      emit(CalculatorCalculated(loan, dataRows));
     });
   }
 }
