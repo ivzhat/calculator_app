@@ -2,15 +2,11 @@
 
 Loan and mortgage calculator app made on Flutter
 
-## Getting Started
+## Screenshots
+<img src="https://github.com/ivzhat/calculator_app/assets/52506165/10197521-78c5-4fd8-aaf9-f361ab59d9ed" width="200"/>
+<img src="https://github.com/ivzhat/calculator_app/assets/52506165/3c41942f-0719-4450-8af2-b6810878ad34" width="200"/>
+<img src="https://github.com/ivzhat/calculator_app/assets/52506165/e05ac595-2cab-4474-a5a4-391570b57980" width="200"/>
+<img src="https://github.com/ivzhat/calculator_app/assets/52506165/f44d2dba-dd6d-4b86-8470-58cd1f6bb43c" width="200"/>
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Flutter version
+Flutter (Channel stable, 3.3.10)
